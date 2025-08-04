@@ -20,6 +20,7 @@ class ReplayBuffer:
         # 相比普通list，deque在头部操作时间复杂度为O(1)，非常适合做缓冲区
         self.buffer = collections.deque(maxlen=capacity) 
 
+
     def add(self, state, action, reward, next_state, done): 
         """
         向缓冲区添加一条经验数据
@@ -31,6 +32,7 @@ class ReplayBuffer:
             done: 是否为终止状态
         """
         self.buffer.append((state, action, reward, next_state, done)) 
+
 
     def sample(self, batch_size): 
         """
@@ -48,6 +50,7 @@ class ReplayBuffer:
         state, action, reward, next_state, done = zip(*transitions)  # 解压数据
         return np.array(state), action, reward, np.array(next_state), done 
 
+
     def size(self): 
         """
         返回缓冲区当前存储的数据量
@@ -55,6 +58,7 @@ class ReplayBuffer:
             int: 缓冲区中的数据条数
         """
         return len(self.buffer)
+
 
 def moving_average(a, window_size):
     """
@@ -79,6 +83,7 @@ def moving_average(a, window_size):
     end = (np.cumsum(a[:-window_size:-1])[::2] / r)[::-1]
     # np.concatenate: 沿指定轴连接数组序列
     return np.concatenate((begin, middle, end))
+
 
 def train_on_policy_agent(env, agent, num_episodes):
     """
@@ -130,6 +135,7 @@ def train_on_policy_agent(env, agent, num_episodes):
                 pbar.update(1)
     return return_list
 
+
 def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size, batch_size):
     """
     训练off-policy智能体的函数（如DQN、DDPG、SAC等）
@@ -180,6 +186,7 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                 # pbar.update(1): 更新进度条，显示训练进展
                 pbar.update(1)
     return return_list
+
 
 
 def compute_advantage(gamma, lmbda, td_delta):
