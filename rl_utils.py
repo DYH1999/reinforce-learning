@@ -104,13 +104,14 @@ def train_on_policy_agent(env, agent, num_episodes):
         # tqdm: 进度条库，用于显示训练进度和预估剩余时间
         # total: 进度条总长度，desc: 进度条描述文字
         # with语句确保进度条正确关闭和资源释放
-        with tqdm(total=int(num_episodes/10), desc='Iteration %d' % i) as pbar:
+        with tqdm(total=int(num_episodes/10), desc='迭代 %d' % i) as pbar:
             for i_episode in range(int(num_episodes/10)):
                 episode_return = 0
                 # 存储一个回合的所有转移数据
                 transition_dict = {'states': [], 'actions': [], 'next_states': [], 'rewards': [], 'dones': []}
                 state = env.reset()
                 done = False
+                
                 # 执行一个完整回合
                 while not done:
                     action = agent.take_action(state)  # 智能体选择动作
@@ -126,6 +127,7 @@ def train_on_policy_agent(env, agent, num_episodes):
                 return_list.append(episode_return)
                 # on-policy算法在每个回合结束后立即更新策略
                 agent.update(transition_dict)
+                
                 # 每10个回合显示一次平均奖励
                 if (i_episode+1) % 10 == 0:
                     # pbar.set_postfix: 在进度条右侧显示额外信息（如当前回合数和平均奖励）
@@ -162,6 +164,7 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                 episode_return = 0
                 state = env.reset()
                 done = False
+                
                 # 执行一个完整回合
                 while not done:
                     action = agent.take_action(state)  # 智能体选择动作
@@ -178,6 +181,7 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                         # 使用采样的数据更新智能体
                         agent.update(transition_dict)
                 return_list.append(episode_return)
+                
                 # 每10个回合显示一次平均奖励
                 if (i_episode+1) % 10 == 0:
                     # pbar.set_postfix: 在进度条右侧显示训练统计信息

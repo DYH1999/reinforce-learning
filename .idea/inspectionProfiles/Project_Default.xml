@@ -1,0 +1,24 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="11">
+            <item index="0" class="java.lang.String" itemvalue="curl_cffi" />
+            <item index="1" class="java.lang.String" itemvalue="gmssl" />
+            <item index="2" class="java.lang.String" itemvalue="pycryptodome" />
+            <item index="3" class="java.lang.String" itemvalue="opencv-python-headless" />
+            <item index="4" class="java.lang.String" itemvalue="Scrapy" />
+            <item index="5" class="java.lang.String" itemvalue="chinese-calendar" />
+            <item index="6" class="java.lang.String" itemvalue="holidays" />
+            <item index="7" class="java.lang.String" itemvalue="klein" />
+            <item index="8" class="java.lang.String" itemvalue="prometheus_fastapi_instrumentator" />
+            <item index="9" class="java.lang.String" itemvalue="DrissionPage" />
+            <item index="10" class="java.lang.String" itemvalue="ddddocr" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
