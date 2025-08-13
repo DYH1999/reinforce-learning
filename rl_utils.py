@@ -108,13 +108,15 @@ def train_on_policy_agent(env, agent, num_episodes):
                 episode_return = 0
                 # 存储一个回合的所有转移数据
                 transition_dict = {'states': [], 'actions': [], 'next_states': [], 'rewards': [], 'dones': []}
-                state = env.reset()
+                state, _ = env.reset()
                 done = False
 
                 # 执行一个完整回合
                 while not done:
                     action = agent.take_action(state)  # 智能体选择动作
-                    next_state, reward, done, _ = env.step(action)  # 环境执行动作
+                    # next_state, reward, done, _ = env.step(action)  # 环境执行动作
+                    next_state, reward, done, truncated, _ = env.step(action)
+                    done = done or truncated
                     # 记录转移数据
                     transition_dict['states'].append(state)
                     transition_dict['actions'].append(action)
@@ -166,13 +168,15 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
         with tqdm(total=int(num_episodes / 10), desc='Iteration %d' % i) as pbar:
             for i_episode in range(int(num_episodes / 10)):
                 episode_return = 0
-                state = env.reset()
+                state, _ = env.reset()
                 done = False
 
                 # 执行一个完整回合
                 while not done:
                     action = agent.take_action(state)  # 智能体选择动作
-                    next_state, reward, done, _ = env.step(action)  # 环境执行动作
+                    # next_state, reward, done, _ = env.step(action)  # 环境执行动作
+                    next_state, reward, done, truncated, _ = env.step(action)
+                    done = done or truncated
                     # 将经验存储到回放缓冲区
                     replay_buffer.add(state, action, reward, next_state, done)
                     state = next_state
